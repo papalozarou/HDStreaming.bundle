@@ -47,11 +47,6 @@
 	<key>PlexPluginMode</key>
 	<string>AlwaysOn</string>
 	
-    <key>PlexFrameworkFlags</key>
-	<array>
-		<string>UseRealRTMP</string>
-	</array>
-	
 	<key>PlexPluginConsoleLogging</key>
 	<string>1</string>
 	<key>PlexPluginDevMode</key>

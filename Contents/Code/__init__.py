@@ -1,4 +1,9 @@
 ################################################################################
+# Python Imports
+################################################################################
+import random
+
+################################################################################
 # Global variables for channel
 ################################################################################
 TITLE                           = "HD Streaming"
@@ -7,8 +12,8 @@ PREFIX                          = "/video/hdstreaming"
 ART                             = "art-default.jpg"
 ICON                            = "icon-default.png"
 
-# Below values lifted from XBMC plugin
-USER_AGENT                      = "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:19.0) Gecko/20100101 Firefox/19.0"
+# Below values lifted from FilmOn plugin
+USER_AGENT                      = 'Mozilla/5.0 (iPad; CPU OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5376e Safari/8536.25'
 REFERER                         = "http://news-source.tv/"
 CUSTOM_HEADERS                  = {'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
                                     'Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.3',
@@ -21,11 +26,24 @@ URL_BASE                        = "http://hd-streaming.tv/"
 URL_LOGIN                       = "api/?request=login"
 URL_LIVE                        = "watch/livehds"
 URL_UPCOMING                    = "watch/upcoming-matches"
-URL_RTMP                        = "rtmp://vdn.hd-streaming.tv:443/live"
-URL_SUFFIX                      = "?s=6hfu0"
+# N.B. Suffix includes file extension .m3u8
+URL_SUFFIX                      = ".m3u8?s=6hfu0"
 
 # Global variable for channels
+CHANNEL_IPS                     = ["5.63.145.149",
+                                    "5.63.145.189",
+                                    "80.82.65.14",
+                                    "80.82.65.180",
+                                    "80.82.69.240",
+                                    "80.82.78.62",
+                                    "89.248.160.222",
+                                    "89.248.171.15",
+                                    "93.174.91.104",
+                                    "94.102.48.81",
+                                    "94.102.49.152",
+                                    "146.185.28.197"]
 CHANNEL_LIST                    = []
+
 ################################################################################
 # Initialise the channel
 ################################################################################
@@ -214,43 +232,43 @@ def LiveStreamsSD(title):
 # Today's streams menu
 ################################################################################   
 # Set the route for the live streams hd menu
-@route(PREFIX + "/todays-streams")
-
-def TodaysStreams(title):
-    # Test to see if user is logged in
-    if "Login" in Dict:
-        # Open an ObjectContainer for the live streams HD menu
-        TODAYS_STREAMS_MENU     = ObjectContainer(
-            title1              = title
-        )
-        
-        return TODAYS_STREAMS_MENU
-    else:
-        # Get not logged in alert
-        ERROR_MESSAGE           = ErrorNotLoggedIn()
-        
-        return ERROR_MESSAGE
+# @route(PREFIX + "/todays-streams")
+#
+# def TodaysStreams(title):
+#     # Test to see if user is logged in
+#     if "Login" in Dict:
+#         # Open an ObjectContainer for the live streams HD menu
+#         TODAYS_STREAMS_MENU     = ObjectContainer(
+#             title1              = title
+#         )
+#
+#         return TODAYS_STREAMS_MENU
+#     else:
+#         # Get not logged in alert
+#         ERROR_MESSAGE           = ErrorNotLoggedIn()
+#
+#         return ERROR_MESSAGE
 
 ################################################################################
 # Live streams SD menu
 ################################################################################   
 # Set the route for the live streams hd menu
-@route(PREFIX + "/upcoming-streams")
-
-def UpcomingStreams(title):
-    # Test to see if user is logged in
-    if "Login" in Dict:
-        # Open an ObjectContainer for the live streams HD menu
-        UPCOMING_STREAMS_MENU   = ObjectContainer(
-            title1              = title
-        )
-        
-        return  UPCOMING_STREAMS_MENU
-    else:
-        # Get not logged in alert
-        ERROR_MESSAGE           = ErrorNotLoggedIn()
-        
-        return ERROR_MESSAGE
+# @route(PREFIX + "/upcoming-streams")
+#
+# def UpcomingStreams(title):
+#     # Test to see if user is logged in
+#     if "Login" in Dict:
+#         # Open an ObjectContainer for the live streams HD menu
+#         UPCOMING_STREAMS_MENU   = ObjectContainer(
+#             title1              = title
+#         )
+#
+#         return  UPCOMING_STREAMS_MENU
+#     else:
+#         # Get not logged in alert
+#         ERROR_MESSAGE           = ErrorNotLoggedIn()
+#
+#         return ERROR_MESSAGE
 
 ################################################################################
 # Gets a list of channels to iterate over
@@ -308,6 +326,12 @@ def CreateChannelEpisodeObject(QUALITY,TITLE,SUMMARY,NUMBER,THUMB,INCLUDE_CONTAI
         HEIGHT          = 720
         WIDTH           = 1280
     
+    URL                 = "http://" + random.choice(CHANNEL_IPS) + "/hls/" + URL_CHANNEL
+    
+    
+    Log(URL)
+    
+    
     # Creates a VideoClipObject, with the key being a callback, unsure why, but
     # this re-calling of the same function is necessary to get an object that will 
     # play without a URL service
@@ -322,15 +346,14 @@ def CreateChannelEpisodeObject(QUALITY,TITLE,SUMMARY,NUMBER,THUMB,INCLUDE_CONTAI
                 video_codec             = VideoCodec.H264,
                 audio_codec             = AudioCodec.AAC,
                 audio_channels          = 2,
-                protocol                = 'rtmp',
+                protocol                = 'HTTPLiveStreaming',
                 optimized_for_streaming = True,
                 height                  = HEIGHT,
                 width                   = WIDTH,
                 parts                   =   [
                     PartObject(
-                        key             = RTMPVideoURL(
-                            url         = URL_RTMP,
-                            clip        = URL_CHANNEL
+                        key             = HTTPLiveStreamURL(
+                            url             = URL
                         )
                     )
                 ]
@@ -341,7 +364,13 @@ def CreateChannelEpisodeObject(QUALITY,TITLE,SUMMARY,NUMBER,THUMB,INCLUDE_CONTAI
     if INCLUDE_CONTAINER:
       return ObjectContainer(objects=[CHANNEL_OBJECT])
     else:
-      return CHANNEL_OBJECT  
+      return CHANNEL_OBJECT
+
+################################################################################
+# Indirect playback function
+################################################################################     
+# def PlayHLS(URL):
+#     return IndirectResponse(VideoClipObject,key=HTTPLiveStreamURL(stream['URL']))
 
 ################################################################################
 # Authenticate the user
