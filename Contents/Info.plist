@@ -17,7 +17,7 @@
 	<string>1.0</string>
 	
 	<key>PlexClientPlatforms</key>
-	<string>MacOSX</string>
+	<string>*</string>
 	<!-- TO ENABLE IOS
 	<key>PlexClientPlatforms</key>
 	<string>MacOSX,iOS</string>-->
@@ -46,6 +46,11 @@
 	<string>2</string>
 	<key>PlexPluginMode</key>
 	<string>AlwaysOn</string>
+	
+    <key>PlexFrameworkFlags</key>
+	<array>
+		<string>UseRealRTMP</string>
+	</array>
 	
 	<key>PlexPluginConsoleLogging</key>
 	<string>1</string>
