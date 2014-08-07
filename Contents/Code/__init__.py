@@ -200,8 +200,6 @@ def LiveStreamsSD(title):
             CHANNEL_NUMBER      = CHANNEL[0].replace("Channel ","channel")
             CHANNEL_THUMB       = "icon-" + CHANNEL[0].replace("Channel ","channel-") + "-" + CHANNEL_QUALITY + ".png"
             
-            
-            Log(CHANNEL_NUMBER + "-sd")
             # Gets channel episode object and adds to menu
             LIVE_STREAMS_SD_MENU.add(CreateChannelEpisodeObject(CHANNEL_QUALITY,CHANNEL_TITLE,CHANNEL_SUMMARY,CHANNEL_NUMBER,CHANNEL_THUMB))
         
@@ -240,8 +238,6 @@ def TodaysStreams(title):
 @route(PREFIX + "/upcoming-streams")
 
 def UpcomingStreams(title):
-    Log(Dict["Login"])
-    
     # Test to see if user is logged in
     if "Login" in Dict:
         # Open an ObjectContainer for the live streams HD menu
@@ -266,21 +262,14 @@ def GetChannelList():
     # Check to see if CHANNEL_LIST is already populated, if yes return it, if
     # no construct it.
     if CHANNEL_LIST:
-        Log(CHANNEL_LIST)
-        
         return CHANNEL_LIST
     else:    
         # Gets the HTML source from the Live Stream URL
         HTML_URL                    = URL_BASE + URL_LIVE
         HTML_SOURCE                 = HTML.ElementFromURL(HTML_URL, headers = CUSTOM_HEADERS)
     
-        Log(HTML_URL)
-        Log(HTML_SOURCE)
-    
         # Find the channel links in the HTML source with xpath
         CHANNELS                    = HTML_SOURCE.xpath("//a[@class='ch-link']")
-    
-        Log(CHANNELS)
     
         # Add each channel's text to CHANNEL_LIST
         for CHANNEL in CHANNELS:
@@ -317,9 +306,7 @@ def CreateChannelEpisodeObject(QUALITY,TITLE,SUMMARY,NUMBER,THUMB,INCLUDE_CONTAI
     else:
         URL_CHANNEL     = NUMBER + URL_SUFFIX
         HEIGHT          = 720
-        WIDTH           = 1280        
-    
-    Log(NUMBER + URL_SUFFIX)
+        WIDTH           = 1280
     
     # Creates a VideoClipObject, with the key being a callback, unsure why, but
     # this re-calling of the same function is necessary to get an object that will 
@@ -363,33 +350,23 @@ def AuthenticateUser():
     # Create the login URL
     LOGIN_URL                   = URL_BASE + URL_LOGIN
     
-    Log(LOGIN_URL)
-    
     # Set the post data
     POST_DATA                   = {
         "username": Prefs["username"],
         "password": Prefs["password"]
     }
     
-    Log(POST_DATA)
-    
     # Grab the HTTP response to login attempt
     CONTENT                     = HTTP.Request(url = LOGIN_URL, values = POST_DATA).content
-    
-    Log(CONTENT)
     
     if "OK" in CONTENT:
         # Sets Dict["Login"] to True on successful login attempt
         Dict["Login"]           = True
         
-        Log(Dict)
-        
         return True
     else:
         # Sets Dict["Login"] to False on unsuccessful login attempt
         Dict["Login"]           = False
-        
-        Log(Dict)
         
         return False
 
