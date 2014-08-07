@@ -74,30 +74,30 @@ def MainMenu():
     )
     
     # Add the today's streams object
-    MAIN_MENU.add(
-        DirectoryObject(
-            title               = "Today's Streams",
-            thumb               = R("icon-todays-streams.png"),
-            summary             = "What's on today",
-            key                 = Callback(
-                TodaysStreams,
-                title           = "Today's Streams"
-            )
-        )
-    )
+    # MAIN_MENU.add(
+    #     DirectoryObject(
+    #         title               = "Today's Streams",
+    #         thumb               = R("icon-todays-streams.png"),
+    #         summary             = "What's on today",
+    #         key                 = Callback(
+    #             TodaysStreams,
+    #             title           = "Today's Streams"
+    #         )
+    #     )
+    # )
     
     # Add the upcoming streams object
-    MAIN_MENU.add(
-        DirectoryObject(
-            title               = "Upcoming Streams",
-            thumb               = R("icon-upcoming-streams.png"),
-            summary             = "What's on in the near future",
-            key                 = Callback(
-                UpcomingStreams,
-                title           = "Upcoming Streams"
-            )
-        )
-    )
+    # MAIN_MENU.add(
+    #     DirectoryObject(
+    #         title               = "Upcoming Streams",
+    #         thumb               = R("icon-upcoming-streams.png"),
+    #         summary             = "What's on in the near future",
+    #         key                 = Callback(
+    #             UpcomingStreams,
+    #             title           = "Upcoming Streams"
+    #         )
+    #     )
+    # )
     
     # Add the preferences object
     MAIN_MENU.add(
