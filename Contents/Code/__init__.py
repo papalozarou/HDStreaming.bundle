@@ -21,7 +21,7 @@ URL_BASE                        = "http://hd-streaming.tv/"
 URL_LOGIN                       = "api/?request=login"
 URL_LIVE                        = "watch/livehds"
 URL_UPCOMING                    = "watch/upcoming-matches"
-URL_RTMP                        = "rtmp://vdn.hd-streaming.tv:443/live/"
+URL_RTMP                        = "rtmp://vdn.hd-streaming.tv:443/live"
 URL_SUFFIX                      = "?s=6hfu0"
 
 # Global variable for channels
