@@ -17,11 +17,11 @@ The channel has been tested on the following clients, running off Mac OS X Plex 
 * iPhone (iOS 7)
 * iPad (iOS 7)
 * Apple TV (latest update)
-* Android 4.4.3 (both Galaxy Nexus and Nexus 7")
+* Galaxy Nexus running Android 4.3
 * Mac OS X Plex Home Theatre
 * Web client in Chrome and Safari
 
-It should work on anything that's not listed here, but if not, post an issue.
+It should work on anything that's not listed here, but if not, post an issue and I'll try and fix it when I can.
 
-N.B. It takes a while for the streams to get going on Android devices so you might need to have some patience
+N.B. It took a while for the streams to get going on my Galaxy Nexus Android device, so you might need to have some patience
 
