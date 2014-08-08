@@ -23,3 +23,5 @@ The channel has been tested on the following clients, running off Mac OS X Plex 
 
 It should work on anything that's not listed here, but if not, post an issue.
 
+N.B. It takes a while for the streams to get going on Android devices so you might need to have some patience
+
