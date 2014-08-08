@@ -10,7 +10,7 @@ import random
 TITLE                           = "HD Streaming"
 PREFIX                          = "/video/hdstreaming"
 
-ART                             = "art-default.jpg"
+ART                             = "art-default.png"
 ICON                            = "icon-default.png"
 
 # Below values lifted from FilmOn plugin
