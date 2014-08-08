@@ -1,6 +1,7 @@
 ################################################################################
 # Python Imports
 ################################################################################
+# This is only needed for picking a randomised IP address from CHANNEL_IPS array
 import random
 
 ################################################################################
@@ -326,15 +327,17 @@ def CreateChannelEpisodeObject(QUALITY,TITLE,SUMMARY,NUMBER,THUMB,INCLUDE_CONTAI
         HEIGHT          = 720
         WIDTH           = 1280
     
+    # Builds a correctly formatted URL for each stream using a random IP number
+    # from the CHANNEL_IPS array
     URL                 = "http://" + random.choice(CHANNEL_IPS) + "/hls/" + URL_CHANNEL
     
-    
-    Log(URL)
-    
-    
     # Creates a VideoClipObject, with the key being a callback, unsure why, but
-    # this re-calling of the same function is necessary to get an object that will 
-    # play without a URL service
+    # this re-calling of the same function is necessary to get an object that
+    # will play without a URL service.
+    #
+    # N.B. HTTPLiveStreamURL automatically sets video_codec, audio_codec and 
+    # protocol. Adding them back in causes the stream not to work on other
+    # devices that are not Chrome and PHT
     CHANNEL_OBJECT              = VideoClipObject(
         key                     = Callback(CreateChannelEpisodeObject,QUALITY=QUALITY,TITLE=TITLE,SUMMARY=SUMMARY,NUMBER=NUMBER,THUMB=THUMB,INCLUDE_CONTAINER=True),
         rating_key              = NUMBER,
@@ -343,17 +346,15 @@ def CreateChannelEpisodeObject(QUALITY,TITLE,SUMMARY,NUMBER,THUMB,INCLUDE_CONTAI
         thumb                   = R(THUMB),
         items                   = [
             MediaObject(
-                video_codec             = VideoCodec.H264,
-                audio_codec             = AudioCodec.AAC,
+                video_resolution        = HEIGHT,
                 audio_channels          = 2,
-                protocol                = 'HTTPLiveStreaming',
                 optimized_for_streaming = True,
                 height                  = HEIGHT,
                 width                   = WIDTH,
                 parts                   =   [
                     PartObject(
                         key             = HTTPLiveStreamURL(
-                            url             = URL
+                            url                     = URL   
                         )
                     )
                 ]
@@ -365,12 +366,6 @@ def CreateChannelEpisodeObject(QUALITY,TITLE,SUMMARY,NUMBER,THUMB,INCLUDE_CONTAI
       return ObjectContainer(objects=[CHANNEL_OBJECT])
     else:
       return CHANNEL_OBJECT
-
-################################################################################
-# Indirect playback function
-################################################################################     
-# def PlayHLS(URL):
-#     return IndirectResponse(VideoClipObject,key=HTTPLiveStreamURL(stream['URL']))
 
 ################################################################################
 # Authenticate the user
