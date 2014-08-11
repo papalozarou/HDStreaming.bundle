@@ -162,7 +162,7 @@ def ValidatePrefs():
 
 def LiveStreamsHD(title):
     # Log the user in initially
-    AuthenticateUser
+    AuthenticateUser()
     
     # Test to see if user is logged in
     if "Login" in Dict:
@@ -184,7 +184,15 @@ def LiveStreamsHD(title):
             CHANNEL_THUMB       = "icon-" + CHANNEL[0].replace("Channel ","channel-") + "-" + CHANNEL_QUALITY + ".png"
             
             # Gets channel episode object and adds to menu
-            LIVE_STREAMS_HD_MENU.add(CreateChannelEpisodeObject(CHANNEL_QUALITY,CHANNEL_TITLE,CHANNEL_SUMMARY,CHANNEL_NUMBER,CHANNEL_THUMB))
+            LIVE_STREAMS_HD_MENU.add(
+                CreateChannelEpisodeObject(
+                    CHANNEL_QUALITY,
+                    CHANNEL_TITLE,
+                    CHANNEL_SUMMARY,
+                    CHANNEL_NUMBER,
+                    CHANNEL_THUMB
+                )
+            )
         
         return LIVE_STREAMS_HD_MENU
     else:
@@ -200,6 +208,9 @@ def LiveStreamsHD(title):
 @route(PREFIX + "/sd-streams")
 
 def LiveStreamsSD(title):
+    # Log the user in initially
+    AuthenticateUser()
+
     # Test to see if user is logged in
     if "Login" in Dict:
         # Open an ObjectContainer for the live streams HD menu
@@ -220,7 +231,15 @@ def LiveStreamsSD(title):
             CHANNEL_THUMB       = "icon-" + CHANNEL[0].replace("Channel ","channel-") + "-" + CHANNEL_QUALITY + ".png"
             
             # Gets channel episode object and adds to menu
-            LIVE_STREAMS_SD_MENU.add(CreateChannelEpisodeObject(CHANNEL_QUALITY,CHANNEL_TITLE,CHANNEL_SUMMARY,CHANNEL_NUMBER,CHANNEL_THUMB))
+            LIVE_STREAMS_SD_MENU.add(
+                CreateChannelEpisodeObject(
+                    CHANNEL_QUALITY,
+                    CHANNEL_TITLE,
+                    CHANNEL_SUMMARY,
+                    CHANNEL_NUMBER,
+                    CHANNEL_THUMB
+                )
+            )
         
         return LIVE_STREAMS_SD_MENU
     else:
@@ -275,9 +294,6 @@ def LiveStreamsSD(title):
 # Gets a list of channels to iterate over
 ################################################################################
 def GetChannelList():
-    # make sure channel list is blank
-    # CHANNEL_LIST                = []
-    
     # Check to see if CHANNEL_LIST is already populated, if yes return it, if
     # no construct it.
     if CHANNEL_LIST:
@@ -339,7 +355,15 @@ def CreateChannelEpisodeObject(QUALITY,TITLE,SUMMARY,NUMBER,THUMB,INCLUDE_CONTAI
     # protocol. Adding them back in causes the stream not to work on other
     # devices that are not Chrome and PHT
     CHANNEL_OBJECT              = VideoClipObject(
-        key                     = Callback(CreateChannelEpisodeObject,QUALITY=QUALITY,TITLE=TITLE,SUMMARY=SUMMARY,NUMBER=NUMBER,THUMB=THUMB,INCLUDE_CONTAINER=True),
+        key                     = Callback(
+            CreateChannelEpisodeObject,
+            QUALITY             = QUALITY,
+            TITLE               = TITLE,
+            SUMMARY             = SUMMARY,
+            NUMBER              = NUMBER,
+            THUMB               = THUMB,
+            INCLUDE_CONTAINER   = True
+        ),
         rating_key              = NUMBER,
         title                   = TITLE,
         summary                 = SUMMARY,
@@ -354,7 +378,7 @@ def CreateChannelEpisodeObject(QUALITY,TITLE,SUMMARY,NUMBER,THUMB,INCLUDE_CONTAI
                 parts                   =   [
                     PartObject(
                         key             = HTTPLiveStreamURL(
-                            url                     = URL   
+                            url         = URL   
                         )
                     )
                 ]
@@ -363,9 +387,11 @@ def CreateChannelEpisodeObject(QUALITY,TITLE,SUMMARY,NUMBER,THUMB,INCLUDE_CONTAI
     )
     
     if INCLUDE_CONTAINER:
-      return ObjectContainer(objects=[CHANNEL_OBJECT])
+        return ObjectContainer(
+            objects               = [CHANNEL_OBJECT]
+        )
     else:
-      return CHANNEL_OBJECT
+        return CHANNEL_OBJECT
 
 ################################################################################
 # Authenticate the user
