@@ -50,7 +50,7 @@ CHANNEL_IPS                     = ["5.63.145.149",
 CHANNEL_LIST                    = []
 
 # THIS IS USED ONLY FOR LOGGING
-STARS                           = "**********"
+# STARS                           = "**********"
 
 ################################################################################
 # Initialise the channel
@@ -147,11 +147,8 @@ def AuthenticateUser():
     # Grab the HTTP response to login attempt
     LOGIN_RESPONSE_CONTENT      = HTTP.Request(url = LOGIN_URL, values = POST_DATA).content
     
-    Log(LOGIN_RESPONSE_CONTENT)
-    
     # Tests to see if we've successfully logged in
     if "OK" in LOGIN_RESPONSE_CONTENT:
-        Log(STARS + " LOGGED IN " + STARS)
         # If "OK" is found within the response set Dict["Login"] to True
         Dict["Login"]           = True
         
@@ -161,7 +158,6 @@ def AuthenticateUser():
         return True
         
     else:
-        Log(STARS + " NOT LOGGED IN " + STARS)
         # If we dont' find "OK" or the response returns null, we return false
         return False
         
@@ -242,8 +238,6 @@ def CreateChannelEpisodeObject(QUALITY,TITLE,SUMMARY,NUMBER,THUMB,INCLUDE_CONTAI
     # Builds a correctly formatted URL for each stream using a random IP number
     # from the CHANNEL_IPS array
     VIDEO_URL           = VIDEO_PREFIX + random.choice(CHANNEL_IPS) + VIDEO_DIRECTORY + VIDEO_FILE
-    
-    Log(VIDEO_URL)
     
     # Creates a VideoClipObject, with the key being a callback, unsure why, but
     # this re-calling of the same function is necessary to get an object that
@@ -425,26 +419,26 @@ def SDStreams(TITLE):
 # Today's streams menu
 ################################################################################
 # Set the route for Today's streams menu
-@route(PREFIX + "/todays-streams")
-
-def TodaysStreams(TITLE):
-    # Open an ObjectContainer for Today's streams menu
-    TODAYS_STREAMS_MENU     = ObjectContainer(
-        title1              = TITLE
-    )
-    
-    return TODAYS_STREAMS_MENU
+# @route(PREFIX + "/todays-streams")
+#
+# def TodaysStreams(TITLE):
+#     # Open an ObjectContainer for Today's streams menu
+#     TODAYS_STREAMS_MENU     = ObjectContainer(
+#         title1              = TITLE
+#     )
+#
+#     return TODAYS_STREAMS_MENU
 
 ################################################################################
 # Upcoming streams menu
 ################################################################################ 
 # Set the route for Upcoming streams menu
-@route(PREFIX + "/upcoming-streams")
-
-def UpcomingStreams(TITLE):
-    # Open an ObjectContainer for Upcoming streams menu
-    UPCOMING_STREAMS_MENU   = ObjectContainer(
-        title1              = TITLE
-    )
-    
-    return UPCOMING_STREAMS_MENU                
+# @route(PREFIX + "/upcoming-streams")
+#
+# def UpcomingStreams(TITLE):
+#     # Open an ObjectContainer for Upcoming streams menu
+#     UPCOMING_STREAMS_MENU   = ObjectContainer(
+#         title1              = TITLE
+#     )
+#
+#     return UPCOMING_STREAMS_MENU             
