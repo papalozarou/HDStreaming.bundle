@@ -57,7 +57,7 @@ CHANNEL_LIST                    = []
 UPCOMING_EVENTS_LIST            = []
 
 # THIS IS USED ONLY FOR LOGGING
-STARS                           = "**********"
+# STARS                           = "**********"
 
 ################################################################################
 # Initialise the channel
@@ -239,11 +239,13 @@ def GetUpcomingEventsList():
                 UPCOMING_EVENTS_SOURCE  = UPCOMING_DAY.xpath(".//div[@class='view-grouping-content']//tbody/tr")
                 UPCOMING_EVENTS         = UpcomingEventsForDay(UPCOMING_EVENTS_SOURCE,UPCOMING_DATE)
             
-                # Loops through each event and appends it to the UPCOMING_EVENTS_LIST
+                # Loops through each event and appends it to the 
+                # UPCOMING_EVENTS_LIST.
+                #
+                # N.B. Yes, I know this is probably bad code nesting a for loop
+                # within a for loop.
                 for EVENT in UPCOMING_EVENTS:
                     UPCOMING_EVENTS_LIST.append(EVENT)
-                
-            Log(UPCOMING_EVENTS_LIST)
         
             return UPCOMING_EVENTS_LIST
         else:          
