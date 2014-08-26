@@ -535,7 +535,7 @@ def UpcomingStreams(TITLE):
             UPCOMING_STREAMS_MENU.add(
                 DirectoryObject(
                     title           = UPCOMING_EVENT[3] + ", " + UPCOMING_EVENT[2],
-                    thumb           = R(ICON),
+                    thumb           = R("icon-upcoming-streams.png"),
                     summary         = UPCOMING_EVENT[0] + " " + UPCOMING_EVENT[1] + ", " + UPCOMING_EVENT[4],
                     key             = Callback(
                         UpcomingEventStreams,
@@ -566,7 +566,7 @@ def UpcomingEventStreams(TITLE,DATE,TIME,CHANNEL,COMPETITION):
     UPCOMING_EVENT_STREAMS_MENU.add(
        CreateChannelEpisodeObject(
             QUALITY     = "hd",
-            TITLE       = "HD Stream",
+            TITLE       = TITLE + ", HD Stream",
             SUMMARY     = COMPETITION + " fixture taking place on " + DATE + " at " + TIME,
             NUMBER      = CHANNEL.replace("CH","channel"),
             THUMB       = "icon-" + CHANNEL.replace("CH","channel-") + "-hd.png"
@@ -577,7 +577,7 @@ def UpcomingEventStreams(TITLE,DATE,TIME,CHANNEL,COMPETITION):
     UPCOMING_EVENT_STREAMS_MENU.add(
        CreateChannelEpisodeObject(
             QUALITY     = "sd",
-            TITLE       = "SD Stream",
+            TITLE       = TITLE + ", SD Stream",
             SUMMARY     = COMPETITION + " fixture taking place on " + DATE + " at " + TIME,
             NUMBER      = CHANNEL.replace("CH","channel"),
             THUMB       = "icon-" + CHANNEL.replace("CH","channel-") + "-sd.png"
