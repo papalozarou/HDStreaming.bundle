@@ -461,7 +461,7 @@ def HDStreams(TITLE):
     # Gets the channel list
     CHANNEL_LIST            = GetChannelList()
     
-    # Loop through each channel to produce an Episode object
+    # Loop through each channel to produce an EpisodeObject
     for CHANNEL in CHANNEL_LIST:
         # Get this channels details
         CHANNEL_DETAILS     = DefineChannelDetails(CHANNEL,"hd")
