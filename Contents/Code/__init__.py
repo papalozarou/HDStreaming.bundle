@@ -32,25 +32,9 @@ URL_UPCOMING                    = "watch/upcoming-matches"
 # File name parts for video URLs
 #
 # N.B. Suffix includes file extension .m3u8
-VIDEO_PREFIX                    = "http://"
+VIDEO_PREFIX                    = "http://vdn.hd-streaming.tv"
 VIDEO_DIRECTORY                 = "/hls/"
 VIDEO_SUFFIX                    = ".m3u8?s=6hfu0"
-
-# IP addresses used by channel video URLs
-CHANNEL_IPS                     = ["5.63.145.149",
-                                    "5.63.145.189",
-                                    "80.82.65.14",
-                                    "80.82.65.180",
-                                    "80.82.69.240",
-                                    "80.82.78.62",
-                                    "89.248.160.222",
-                                    "89.248.171.15",
-                                    "93.174.91.104",
-                                    "94.102.48.81",
-                                    "94.102.49.152",
-                                    "146.185.28.197"]
-                                    
-CHANNEL_PREFIX                  = "vdn.hd-streaming.tv"
                                     
 # Global variable used to store channel list
 CHANNEL_LIST                    = []
@@ -323,8 +307,7 @@ def CreateChannelEpisodeObject(QUALITY,TITLE,SUMMARY,NUMBER,THUMB,INCLUDE_CONTAI
     
     # Builds a correctly formatted URL for each stream using a random IP number
     # from the CHANNEL_IPS array
-    # VIDEO_URL           = VIDEO_PREFIX + random.choice(CHANNEL_IPS) + VIDEO_DIRECTORY + VIDEO_FILE
-    VIDEO_URL           = VIDEO_PREFIX + CHANNEL_PREFIX + VIDEO_DIRECTORY + VIDEO_FILE
+    VIDEO_URL           = VIDEO_PREFIX + VIDEO_DIRECTORY + VIDEO_FILE
     
     # Creates a VideoClipObject, with the key being a callback, unsure why, but
     # this re-calling of the same function is necessary to get an object that
