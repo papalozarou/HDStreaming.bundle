@@ -50,8 +50,6 @@ CHANNEL_IPS                     = ["5.63.145.149",
                                     "94.102.49.152",
                                     "146.185.28.197"]
                                     
-CHANNEL_PREFIX                  = "vdn.hd-streaming.tv"
-                                    
 # Global variable used to store channel list
 CHANNEL_LIST                    = []
 
@@ -323,8 +321,7 @@ def CreateChannelEpisodeObject(QUALITY,TITLE,SUMMARY,NUMBER,THUMB,INCLUDE_CONTAI
     
     # Builds a correctly formatted URL for each stream using a random IP number
     # from the CHANNEL_IPS array
-    # VIDEO_URL           = VIDEO_PREFIX + random.choice(CHANNEL_IPS) + VIDEO_DIRECTORY + VIDEO_FILE
-    VIDEO_URL           = VIDEO_PREFIX + CHANNEL_PREFIX + VIDEO_DIRECTORY + VIDEO_FILE
+    VIDEO_URL           = VIDEO_PREFIX + random.choice(CHANNEL_IPS) + VIDEO_DIRECTORY + VIDEO_FILE    
     
     # Creates a VideoClipObject, with the key being a callback, unsure why, but
     # this re-calling of the same function is necessary to get an object that
